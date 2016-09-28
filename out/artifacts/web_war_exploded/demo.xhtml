@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+>
+<style type="">
+    /* Body */
+    body {
+        background-color: rgb(255, 255, 255);
+        width: 99%;
+    }
+    /* Modalbox */
+    .modalDialog {
+        position: fixed;
+        font-family: Arial, Helvetica, sans-serif;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(0,0,0,0.8);
+        z-index: 99999;
+        opacity:0;
+        -webkit-transition: opacity 400ms ease-in;
+        -moz-transition: opacity 400ms ease-in;
+        transition: opacity 400ms ease-in;
+        pointer-events: none;
+    }
+
+    .modalDialog:target {
+        opacity:1;
+        pointer-events: auto;
+    }
+
+    .modalDialog > div {
+        width: 400px;
+        position: relative;
+        margin: 10% auto;
+        padding: 5px 20px 13px 20px;
+        border-radius: 10px;
+        background: #fff;
+        background: -moz-linear-gradient(#fff, #999);
+        background: -webkit-linear-gradient(#fff, #999);
+        background: -o-linear-gradient(#fff, #999);
+    }
+
+    .close {
+        background: #606061;
+        color: #FFFFFF;
+        line-height: 25px;
+        position: absolute;
+        right: -12px;
+        text-align: center;
+        top: -10px;
+        width: 24px;
+        text-decoration: none;
+        font-weight: bold;
+        -webkit-border-radius: 12px;
+        -moz-border-radius: 12px;
+        border-radius: 12px;
+        -moz-box-shadow: 1px 1px 3px #000;
+        -webkit-box-shadow: 1px 1px 3px #000;
+        box-shadow: 1px 1px 3px #000;
+    }
+
+    .close:hover { background: #00d9ff; }
+    /* Table */
+    /* Modalbox */
+
+    /* Header */
+    .header {
+        position: center;
+        border-radius: 10px;
+        padding-right: 50px;
+        padding-left: 20px;
+        margin-bottom: 10px;
+        width: 1380px;
+        height: 100%;
+        background-color: rgb(136, 136, 136)
+    }
+
+    .customHeader {
+        background-color: rgb(0, 0, 0);
+        color: #fff;
+        position: center;
+        font-weight: bolder;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 5px;
+        text-align: left;
+    }
+
+    tr:nth-child(even) {
+        background-color: rgb(136, 136, 136);
+        color: #000;
+        font-size: 20px;
+        font-weight: 900;
+    }
+
+    tr:nth-child(odd) {
+        background-color: rgb(200, 200, 200);
+        color: #000;
+        font-size: 20px;
+        font-weight: 900;
+    }
+
+    /* Button */
+    .richButton {
+        margin: 0 5px 0 0;
+        padding: 5px 10px 5px 10px;
+        height: 29px;
+        font-size: 12px;
+        color: #262626;
+        font-weight: bold;
+        border: 1px #ccc solid;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .richButton:hover:enabled {
+        /* IE10 Consumer Preview */
+        background: -ms-linear-gradient(top, #FFFFFF 0%, #CCCCCC 100%);
+        /* Mozilla Firefox */
+        background: -moz-linear-gradient(top, #FFFFFF 0%, #CCCCCC 100%);
+        /* Opera */
+        background: -o-linear-gradient(top, #FFFFFF 0%, #CCCCCC 100%);
+        /* Webkit (Safari/Chrome 10) */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FFFFFF),
+        color-stop(1, #CCCCCC));
+        /* Webkit (Chrome 11+) */
+        background: -webkit-linear-gradient(top, #FFFFFF 0%, #CCCCCC 100%);
+        /* W3C Markup, IE10 Release Preview */
+        background: linear-gradient(to bottom, #FFFFFF 0%, #CCCCCC 100%);
+    }
+
+    .richButton:active:enabled {
+        /* IE10 Consumer Preview */
+        background: -ms-linear-gradient(top, #F0F0F0 0%, #CCCCCC 100%);
+        /* Mozilla Firefox */
+        background: -moz-linear-gradient(top, #F0F0F0 0%, #CCCCCC 100%);
+        /* Opera */
+        background: -o-linear-gradient(top, #F0F0F0 0%, #CCCCCC 100%);
+        /* Webkit (Safari/Chrome 10) */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #F0F0F0),
+        color-stop(1, #CCCCCC));
+        /* Webkit (Chrome 11+) */
+        background: -webkit-linear-gradient(top, #F0F0F0 0%, #CCCCCC 100%);
+        /* W3C Markup, IE10 Release Preview */
+        background: linear-gradient(to bottom, #F0F0F0 0%, #CCCCCC 100%);
+    }
+
+    .richButton:disabled {
+        font-weight: normal;
+        color: #888888;
+    }
+
+    /* Text visibly */
+    h5.visible {
+        visibility: visible;
+        color: #ff0000;
+    }
+
+    h5.hidden {
+        visibility: hidden;
+        font-size: 0;
+    }
+
+</style>
+<h:head>
+    <!-- To see default without css changes the name tag below  -->
+    <!-- Pulling css from src/main/resources/css -->/
+</h:head>
+<h:body>
+
+    <h:form>
+        <table>
+            <tr>
+                <td bgcolor="#000"><h2 style="color: #fff">Enter Phone</h2></td>
+                <td bgcolor="#000"><h2></h2></td>
+            </tr>
+            <!-- Phone make and model text input -->
+            <tr>
+                <td>Search by MSISDN:</td>
+                <td><h:inputText size="20"
+                                 requiredMessage="Please enter a Make." value="#{phone.make}"
+                                 maxlength="26"/></td>
+            </tr>
+            <tr>
+                <td>Search by E-mail Addresses:</td>
+                <td><h:inputText size="20"
+                                 requiredMessage="Please enter a Model. " value="#{phone.model}"
+                                 maxlength="26"/></td>
+            </tr>
+            <tr>
+                <td>Search by Order Number:</td>
+                <td><h:inputText size="20"
+                                 requiredMessage="Please enter a Model. " value="#{phone.memory}"
+                                 maxlength="26"/></td>
+            </tr>
+        </table>
+        <br/>
+        <!-- Buttons on the entry field-->
+        <h:commandButton value="Search" action="#{phone.main}" style="background: none repeat scroll 0 0 #9C2AA0 !important;
+        color: #ffffff !important;"
+                         styleClass="richButton"/>
+        <!-- Adding to the table -->
+        <h:commandButton value="Reset" action="#{phone.Undo}"
+                         styleClass="richButton"/>
+        <!-- Undo function -->
+        <h5 class="#{phone.used}">* Please note that you can not have a
+            duplicate model.</h5>
+        <h5 class="#{phone.makeB}">* Please note that you can not a empty
+            make.</h5>
+        <h5 class="#{phone.modelB}">* Please note that you can not a
+            empty model.</h5>
+        <!-- Adding padding from top table to bottom entry -->
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <!-- Adding padding from top table to bottom entry -->
+        <h:dataTable value="#{phone.phoneList}" var="o"
+                     styleClass="phone-table" headerClass="phone-table-header"
+                     rowClasses="phone-table-odd-row,phone-table-even-row">
+
+            <h:column headerClass="customHeader">
+                <!-- Start of data table -->
+                <f:facet name="header">
+                    <h3>Order Number</h3>
+                </f:facet><h:commandLink value="#{o.orderNumber}" action="#{phone.Undo}"></h:commandLink>
+            </h:column>
+
+            <h:column headerClass="customHeader">
+                <!-- Start of data table -->
+                <f:facet name="header">
+                    <h3>MSISDN</h3>
+                </f:facet>#{o.msisdn}
+            </h:column>
+
+            <h:column headerClass="customHeader">
+                <!-- Start of data table -->
+                <f:facet name="header">
+                    <h3>Transaction type</h3>
+                </f:facet>#{o.transactionType}
+            </h:column>
+
+            <h:column headerClass="customHeader">
+                <!-- Start of data table -->
+                <f:facet name="header">
+                    <h3>Payment Type</h3>
+                </f:facet>#{o.paymentType}
+            </h:column>
+
+            <h:column headerClass="customHeader">
+                <!-- Start of data table -->
+                <f:facet name="header">
+                    <h3>Order Status</h3>
+                </f:facet>#{o.orderStatus}
+            </h:column>
+
+            <h:column headerClass="customHeader">
+                <!-- Start of data table -->
+                <f:facet name="header">
+                    <h3>Payment Status</h3>
+                </f:facet>#{o.paymentStatus}
+            </h:column>
+
+            <h:column headerClass="customHeader">
+                <!-- Start of data table -->
+                <f:facet name="header">
+                    <h3>channel</h3>
+                </f:facet>#{o.channel}
+            </h:column>
+
+            <h:column headerClass="customHeader">
+                <!-- Start of data table -->
+                <f:facet name="header">
+                    <h3>Surname</h3>
+                </f:facet>#{o.surname}
+            </h:column>
+
+            <h:column headerClass="customHeader">
+                <!-- Start of data table -->
+                <f:facet name="header">
+                    <h3>First Name</h3>
+                </f:facet>#{o.firstname}
+            </h:column>
+
+            <h:column headerClass="customHeader">
+                <!-- Start of data table -->
+                <f:facet name="header">
+                    <h3>channel</h3>
+                </f:facet>#{o.channel2}
+            </h:column>
+
+            <h:column headerClass="customHeader">
+                <!-- Start of data table -->
+                <f:facet name="header">
+                    <h3>Email Address</h3>
+                </f:facet>#{o.emailAddress}
+            </h:column>
+
+            <h:column headerClass="customHeader">
+                <!-- Start of data table -->
+                <f:facet name="header">
+                    <h3>Creation Date</h3>
+                </f:facet>#{o.creationDate}
+            </h:column>
+
+            <h:column headerClass="customHeader">
+                <!-- Start of data table -->
+                <f:facet name="header">
+                    <h3>Modified Date</h3>
+                </f:facet>#{o.modifiedDate}
+            </h:column>
+        </h:dataTable>
+        <!-- MODEL BOX -->
+        <a href="#openModal">Open Modal</a>
+        <div id="openModal" class="modalDialog">
+            <div>
+                <a href="#close" title="Close" class="close">X</a>
+                <h2>Modal Box</h2>
+                <p>This is a sample modal box that can be created using the powers of CSS3.</p>
+                <p>You could do a lot of things here like have a pop-up ad that shows when your website loads, or create a login/register form for users.</p>
+            </div>
+        </div>
+
+    </h:form>
+</h:body>
+</html>
